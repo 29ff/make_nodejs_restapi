@@ -1,0 +1,23 @@
+{
+  "name": "make_nodejs_restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/29ff/make_nodejs_restapi.git"
+  },
+  "keywords": [],
+  "author": "29FF <nbhung1809@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/29ff/make_nodejs_restapi/issues"
+  },
+  "homepage": "https://github.com/29ff/make_nodejs_restapi#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
