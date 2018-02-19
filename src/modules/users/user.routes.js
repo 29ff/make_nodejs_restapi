@@ -2,6 +2,13 @@ import express from 'express';
 import validate from 'express-validation';
 import * as userController from './user.controllers';
 import userValidation from './user.validations';
+import { authLocal } from '../../services/auth.services';
 const routes = new express.Router();
-routes.post('/signup', validate(userValidation.signup), userController.signUp);
+
+// signup route
+routes.post('/signup', validate(userValidation.signup), userController.signup);
+
+// login route
+routes.post('/login', authLocal, userController.login);
+
 export default routes;
