@@ -1,7 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 import validator from 'validator';
+import jwt from 'jsonwebtoken';
+
 import { passwordReg } from './user.validations';
 import { hashSync, compareSync } from 'bcrypt-nodejs';
+import constants from '../../config/constants';
 
 const UserSchema = new Schema({
   email: {
@@ -18,17 +21,17 @@ const UserSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: [ true, 'First name is required!' ],
+    required: [ true, 'Firstname is required!' ],
     trim: true
   },
   lastName: {
     type: String,
-    required: [ true, 'Last name is required!' ],
+    required: [ true, 'Lastname is required!' ],
     trim: true
   },
   userName: {
     type: String,
-    required: [ true, 'User name is required!' ],
+    required: [ true, 'Username is required!' ],
     trim: true,
     unique: true
   },
@@ -59,7 +62,22 @@ UserSchema.methods = {
   },
   authenicateUser(password) {
     return compareSync(password, this.password);
-  }
+  },
+  createToken() {
+    return jwt.sign(
+      {
+        _id: this._id,
+      },
+      constants.JWT_SECRET,
+    );
+  },
+  toJSON() {
+    return {
+      _id: this._id,
+      userName: this.userName,
+      token: this.createToken(),
+    };
+  },
 }
 
 export default mongoose.model('User', UserSchema);

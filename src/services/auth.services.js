@@ -30,7 +30,7 @@ const localStrategy = new LocalStrategy(localOpts, async(email, password, done) 
 
 // jwt strategy
 const jwtOpts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeader('authorization'),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken('authorization'),
   secretOrKey: constants.JWT_SECRET,
 }
 
@@ -50,7 +50,7 @@ const jwtStrategy = new JWTStrategy(jwtOpts, async(payload, done) => {
 });
 
 passport.use(localStrategy);
-passport.user(jwtStrategy);
+passport.use(jwtStrategy);
 
 export const authLocal = passport.authenticate('local', {
   session: false
