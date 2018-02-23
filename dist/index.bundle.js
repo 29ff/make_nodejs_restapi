@@ -517,15 +517,15 @@ var _user = __webpack_require__(16);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _auth = __webpack_require__(6);
+var _post = __webpack_require__(25);
+
+var _post2 = _interopRequireDefault(_post);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = app => {
   app.use('/api/v1/users', _user2.default);
-  app.get('/hello', _auth.authJwt, (req, res) => {
-    res.send('This is the private route!');
-  });
+  app.use('/api/v1/posts', _post2.default);
 };
 
 /***/ }),
@@ -645,6 +645,188 @@ module.exports = require("passport-local");
 /***/ (function(module, exports) {
 
 module.exports = require("passport-jwt");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = __webpack_require__(1);
+
+var _expressValidation = __webpack_require__(17);
+
+var _expressValidation2 = _interopRequireDefault(_expressValidation);
+
+var _post = __webpack_require__(26);
+
+var postController = _interopRequireWildcard(_post);
+
+var _auth = __webpack_require__(6);
+
+var _post2 = __webpack_require__(30);
+
+var _post3 = _interopRequireDefault(_post2);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const routes = new _express.Router();
+
+routes.post('/', _auth.authJwt, (0, _expressValidation2.default)(_post3.default.createPost), postController.createPost);
+
+exports.default = routes;
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createPost = createPost;
+
+var _post = __webpack_require__(27);
+
+var _post2 = _interopRequireDefault(_post);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+async function createPost(req, res) {
+  try {
+    const post = await _post2.default.createPost(req.body, req.user._id);
+    return res.status(201).json(post);
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+}
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(2);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _slug = __webpack_require__(28);
+
+var _slug2 = _interopRequireDefault(_slug);
+
+var _mongooseUniqueValidator = __webpack_require__(29);
+
+var _mongooseUniqueValidator2 = _interopRequireDefault(_mongooseUniqueValidator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const PostSchema = new _mongoose.Schema({
+  title: {
+    type: String,
+    trim: true,
+    required: [true, 'Title is required!'],
+    minlength: [3, 'Title need to be longer!'],
+    unique: true
+  },
+  text: {
+    type: String,
+    trim: true,
+    required: [true, 'Text is required!'],
+    minlength: [10, 'Text need to be longer!']
+  },
+  slug: {
+    type: String,
+    trim: true,
+    lowercase: true
+  },
+  user: {
+    type: _mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  favoriteCount: {
+    type: Number,
+    default: 0
+  }
+}, { timestamps: true });
+
+PostSchema.plugin(_mongooseUniqueValidator2.default, {
+  message: '{VALUE} already taken!'
+});
+
+PostSchema.pre('validate', function (next) {
+  this._slugify();
+
+  next();
+});
+
+PostSchema.methods = {
+  _slugify() {
+    this.slug = (0, _slug2.default)(this.title);
+  }
+};
+
+PostSchema.statics = {
+  createPost(args, user) {
+    return this.create(Object.assign({}, args, {
+      user
+    }));
+  }
+};
+
+exports.default = _mongoose2.default.model('Post', PostSchema);
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("slug");
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose-unique-validator");
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _joi = __webpack_require__(21);
+
+var _joi2 = _interopRequireDefault(_joi);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  createPost: {
+    body: {
+      title: _joi2.default.string().min(3).required(),
+      text: _joi2.default.string().min(10).required()
+    }
+  }
+};
 
 /***/ })
 /******/ ]);
