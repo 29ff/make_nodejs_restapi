@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -120,6 +120,12 @@ module.exports = require("passport");
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-validation");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -133,15 +139,15 @@ var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(19);
+var _validator = __webpack_require__(20);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _jsonwebtoken = __webpack_require__(20);
+var _jsonwebtoken = __webpack_require__(21);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _user = __webpack_require__(5);
+var _user = __webpack_require__(6);
 
 var _bcryptNodejs = __webpack_require__(22);
 
@@ -225,7 +231,7 @@ UserSchema.methods = {
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -236,7 +242,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.passwordReg = undefined;
 
-var _joi = __webpack_require__(21);
+var _joi = __webpack_require__(7);
 
 var _joi2 = _interopRequireDefault(_joi);
 
@@ -254,7 +260,13 @@ exports.default = {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("joi");
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -275,7 +287,7 @@ var _passportLocal2 = _interopRequireDefault(_passportLocal);
 
 var _passportJwt = __webpack_require__(24);
 
-var _user = __webpack_require__(4);
+var _user = __webpack_require__(5);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -340,7 +352,7 @@ const authJwt = exports.authJwt = _passport2.default.authenticate('jwt', {
 });
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -354,13 +366,13 @@ var _constants = __webpack_require__(0);
 
 var _constants2 = _interopRequireDefault(_constants);
 
-__webpack_require__(8);
+__webpack_require__(10);
 
-var _middleware = __webpack_require__(9);
+var _middleware = __webpack_require__(11);
 
 var _middleware2 = _interopRequireDefault(_middleware);
 
-var _modules = __webpack_require__(15);
+var _modules = __webpack_require__(17);
 
 var _modules2 = _interopRequireDefault(_modules);
 
@@ -385,7 +397,7 @@ app.listen(_constants2.default.PORT, err => {
 });
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -418,7 +430,7 @@ _mongoose2.default.connection.once('open', () => {
 });
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -428,19 +440,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _morgan = __webpack_require__(10);
+var _morgan = __webpack_require__(12);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _bodyParser = __webpack_require__(11);
+var _bodyParser = __webpack_require__(13);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _compression = __webpack_require__(12);
+var _compression = __webpack_require__(14);
 
 var _compression2 = _interopRequireDefault(_compression);
 
-var _helmet = __webpack_require__(13);
+var _helmet = __webpack_require__(15);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
@@ -448,7 +460,7 @@ var _passport = __webpack_require__(3);
 
 var _passport2 = _interopRequireDefault(_passport);
 
-var _util = __webpack_require__(14);
+var _util = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -473,37 +485,37 @@ exports.default = app => {
 };
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("compression");
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("util");
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -513,7 +525,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _user = __webpack_require__(16);
+var _user = __webpack_require__(18);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -529,7 +541,7 @@ exports.default = app => {
 };
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -543,19 +555,19 @@ var _express = __webpack_require__(1);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _expressValidation = __webpack_require__(17);
+var _expressValidation = __webpack_require__(4);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
-var _user = __webpack_require__(18);
+var _user = __webpack_require__(19);
 
 var userController = _interopRequireWildcard(_user);
 
-var _user2 = __webpack_require__(5);
+var _user2 = __webpack_require__(6);
 
 var _user3 = _interopRequireDefault(_user2);
 
-var _auth = __webpack_require__(6);
+var _auth = __webpack_require__(8);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -572,13 +584,7 @@ routes.post('/login', _auth.authLocal, userController.login);
 exports.default = routes;
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-validation");
-
-/***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -590,7 +596,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.signup = signup;
 exports.login = login;
 
-var _user = __webpack_require__(4);
+var _user = __webpack_require__(5);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -611,22 +617,16 @@ function login(req, res, next) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("jsonwebtoken");
-
-/***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = require("joi");
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 /* 22 */
@@ -659,7 +659,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = __webpack_require__(1);
 
-var _expressValidation = __webpack_require__(17);
+var _expressValidation = __webpack_require__(4);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
@@ -667,7 +667,7 @@ var _post = __webpack_require__(26);
 
 var postController = _interopRequireWildcard(_post);
 
-var _auth = __webpack_require__(6);
+var _auth = __webpack_require__(8);
 
 var _post2 = __webpack_require__(30);
 
@@ -813,7 +813,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _joi = __webpack_require__(21);
+var _joi = __webpack_require__(7);
 
 var _joi2 = _interopRequireDefault(_joi);
 
