@@ -12,7 +12,7 @@ export async function createPost(req, res) {
 
 export async function getPostById(req, res) {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate('user');
     return res.status(HTTPStatus.OK).json(post);
   } catch (error) {
     return res.status(HTTPStatus.BAD_REQUEST).json(error);
